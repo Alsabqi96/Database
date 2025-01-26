@@ -43,6 +43,7 @@ INSERT INTO projects (project_name, department_id, budget) VALUES
 ('Project2', 2, 1200),
 ('Project3', 3, 7000),
 ('Project4', 4, 9500);
+('Project5', 5, 9500);
 
 1-Find all employees earning a salary higher than the average salary of all employees.
 select name, salary from employees where salary > (select avg(salary) from employees);
@@ -100,6 +101,55 @@ select department_name from departments where department_id in (select departmen
 
 19-Identify the name and hire date of the most recently hired employee.
 select name, hire_date from employees where hire_date = (select max(hire_date) from employees);
+
+select * from projects p  join departments d on p.department_id = d.department_id;
+select * from projects p  right join departments d on p.department_id = d.department_id;
+
+select * from employees cross join projects;
+
+SELECT e1.name AS employee_name, e2.name AS colleague_name
+			FROM employees e1
+			INNER JOIN employees e2
+			ON e1.department_id = e2.department_id
+			WHERE e1.hire_date < e2.hire_date;
+
+select p1.budget as Project1_budget, p2.budget as Project2_budget
+from Projects p1
+inner join Projects p2
+on p1.department_id=p1.department_id
+where p1.budget < p2.budget;
+
+SELECT e1.name AS employee_name, e2.name AS colleague_name
+FROM employees e1
+INNER JOIN employees e2
+ON e1.department_id = e2.department_id;
+
+select *
+from Projects p1
+inner join Projects p2
+on p1.department_id=p2.department_id
+where p1.budget > p2.budget
+
+*Basic Joins*
+Find Employee and Their Department Name
+Write a query to fetch the employee's name along with their respective department name.
+select e.name as employee_name, d.department_name as department_name from employees e left join departments d on e.department_id = d.department_id;
+
+List Projects and Their Department Locations
+Write a query to list all projects with their department's location.
+select p.project_name, d.location from projects p inner join departments d on p.department_id = d.department_id;
+
+Find Employees Without Departments
+Write a query to find employees who do not belong to any department.
+select name as employee_name from employees where department_id is null;
+
+List All Projects and Assigned Departments
+Write a query to list each project name and the name of the department it is assigned to. Include projects that are not assigned to any department.
+select p.project_name, d.department_name from projects p left join departments d on p.department_id = d.department_id;
+
+
+
+
 
 
 
